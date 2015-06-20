@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app ="photogallery">
+  <head>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="style.css">
+    <script src="angular.js"></script>
+    <script src="angular-animate.js"></script>
+    <script src="photogallery.js"></script>
+    <script src="jquery-2.1.4.js"></script>
+    <link href="bootstrap-3.3.4-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap-3.3.4-dist/js/bootstrap.js" rel="stylesheet">
+    <script type="text/javascript" src="ui-bootstrap-tpls-0.13.0.js" rel="stylesheet">  </script>
+  </head>
+<body ng-controller="photoController">
+<input type="text" class="form-control" ng-model="search" placeholder="Narrow Down the Image Search" width:"50px" ng-change="pageChanged()" >
+         
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit"> 
+
+</form>  
+ <button ng-click="activate_delete()" >Delete</button>  <-- Permenent delete(locally), select checkmark
+   <div id="my-container"></div>
+    <ul id="thumbnails">
+    <!-- item photo-list -->
+  <li class="photo-list" ng-repeat="image in filteredImages  | filter: search  " option="#my-container" itemdata='image' > 
+
+      <div class="col-md-6" > 
+
+  <!-- Using checkbox, putting elements in a array then deleting them -->
+          <input type="checkbox" value="{{image}}"  ng-click="checkedIndex(image)"> 
+          <img src="{{image}}" class="img-responsive" ng-click="changeImage(image)">
+        
+      </div>
+   </li>
+   </ul>
+
+          <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      </div> 
+   </div>
+  </body>
+</html>
